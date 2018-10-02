@@ -2,7 +2,7 @@ package Advanced.Prototype;
 
 public abstract class Shape implements Cloneable {
     private String id;
-    private String type;
+    protected String type;
 
     abstract void draw();
 
@@ -12,6 +12,10 @@ public abstract class Shape implements Cloneable {
 
     public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Object clone() {

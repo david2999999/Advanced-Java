@@ -1,4 +1,4 @@
-package Advanced.AbstractFactory;
+package Advanced.AbstractFactory.color;
 
 public class Red implements Color {
     @Override

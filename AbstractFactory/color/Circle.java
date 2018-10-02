@@ -1,4 +1,6 @@
-package Advanced.AbstractFactory;
+package Advanced.AbstractFactory.color;
+
+import Advanced.AbstractFactory.shape.Shape;
 
 public class Circle implements Shape {
     @Override

@@ -1,13 +1,18 @@
-package Advanced.AbstractFactory;
+package Advanced.AbstractFactory.shape;
+
+import Advanced.AbstractFactory.AbstractFactory;
+import Advanced.AbstractFactory.color.Circle;
+import Advanced.AbstractFactory.color.Color;
 
 public class ShapeFactory extends AbstractFactory {
+
     @Override
-    Color getColor(String color) {
+    public Color getColor(String color) {
         return null;
     }
 
     @Override
-    Shape getShape(String shapeType) {
+    public Shape getShape(String shapeType) {
         if (shapeType == null) return null;
 
         if (shapeType.equalsIgnoreCase("Rectangle")) {

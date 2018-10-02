@@ -1,8 +1,12 @@
-package Advanced.AbstractFactory;
+package Advanced.AbstractFactory.color;
+
+import Advanced.AbstractFactory.AbstractFactory;
+import Advanced.AbstractFactory.shape.Shape;
 
 public class ColorFactory extends AbstractFactory {
+
     @Override
-    Color getColor(String color) {
+    public Color getColor(String color) {
         if (color == null) return null;
 
         if (color.equalsIgnoreCase("Red")) {
@@ -17,7 +21,7 @@ public class ColorFactory extends AbstractFactory {
     }
 
     @Override
-    Shape getShape(String shape) {
+    public Shape getShape(String shape) {
         return null;
     }
 }

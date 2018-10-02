@@ -1,4 +1,4 @@
-package Advanced.AbstractFactory;
+package Advanced.AbstractFactory.shape;
 
 public class Square implements Shape{
     @Override

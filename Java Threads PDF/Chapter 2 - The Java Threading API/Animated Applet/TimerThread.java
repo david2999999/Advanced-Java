@@ -14,7 +14,7 @@ public class TimerThread extends Thread {
     public void run() {
         while (shouldRun) {
             try {
-                comp.repaint();
+                comp.paint();
                 sleep(timediff);
             } catch (Exception e) {}
         }

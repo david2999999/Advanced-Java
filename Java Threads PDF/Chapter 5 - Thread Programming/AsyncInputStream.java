@@ -58,3 +58,36 @@ return(sizeread);
 lock.freeBusyFlag();
 }
 }
+public long skip(long n) throws IOException {
+try {
+lock.getBusyFlag();
+int sizeskip = Math.min(reslen, (int) n);
+if (sizeskip > 0) {
+byte c[] = getChars(sizeskip);
+}
+return((long)sizeskip);
+} finally {
+lock.freeBusyFlag();
+}
+}
+public int available() throws IOException {
+return reslen;
+}
+public void close() throws IOException {
+try {
+lock.getBusyFlag();
+reslen = 0; // Clear buffer.
+EOF = true; // Mark end of file.
+empty.cvBroadcast(); // Alert all threads.
+full.cvBroadcast();
+} finally {
+lock.freeBusyFlag();
+}
+}
+public void mark(int readlimit) {
+}
+public void reset() throws IOException {
+}
+public boolean markSupported() {
+return false;
+}

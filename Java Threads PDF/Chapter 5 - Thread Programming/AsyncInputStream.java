@@ -91,3 +91,36 @@ public void reset() throws IOException {
 public boolean markSupported() {
 return false;
 }
+public void run() {
+try {
+while (true) {
+int c = in.read();
+try {
+lock.getBusyFlag();
+if ((c == -1) || (EOF)) {
+EOF = true; // Mark end of file.
+in.close(); // Close input source.
+return; // End I/O thread.
+} else {
+putChar((byte)c); // Store the byte read.
+}
+if (EOF) {
+in.close(); // Close input source.
+return; // End I/O thread.
+}
+} finally {
+lock.freeBusyFlag();
+}
+}
+} catch (IOException e) {
+IOError = e; // Store exception.
+return;
+} finally {
+try {
+lock.getBusyFlag();
+empty.cvBroadcast(); // Alert all threads.
+} finally {
+lock.freeBusyFlag();
+}
+}
+}

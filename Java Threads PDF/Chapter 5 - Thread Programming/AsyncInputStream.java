@@ -124,3 +124,44 @@ lock.freeBusyFlag();
 }
 }
 }
+private void putChar(byte c) {
+try {
+lock.getBusyFlag();
+while ((reslen == result.length) && (!EOF)) {
+try {
+full.cvWait();
+} catch (InterruptedException ie) {}
+}
+if (!EOF) {
+result[reslen++] = c;
+empty.cvSignal();
+}
+} finally {
+lock.freeBusyFlag();
+}
+}
+private byte getChar() {
+try {
+lock.getBusyFlag();
+byte c = result[0];
+System.arraycopy(result, 1, result, 0, --reslen);
+full.cvSignal();
+return c;
+} finally {
+lock.freeBusyFlag();
+}
+}
+private byte[] getChars(int chars) {
+try {
+lock.getBusyFlag();
+byte c[] = new byte[chars];
+System.arraycopy(result, 0, c, 0, chars);
+reslen -= chars;
+System.arraycopy(result, chars, result, 0, reslen);
+full.cvSignal();
+return c;
+} finally {
+lock.freeBusyFlag();
+}
+}
+}

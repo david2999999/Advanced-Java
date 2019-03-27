@@ -22,3 +22,39 @@ runner.start();
 protected AsyncInputStream(InputStream in) {
 this(in, 1024);
 }
+public int read() throws IOException {
+try {
+lock.getBusyFlag();
+while (reslen == 0) {
+try {
+if (EOF) return(-1);
+if (IOError != null) throw IOError;
+empty.cvWait();
+} catch (InterruptedException e) {}
+}
+return (int) getChar();
+} finally {
+lock.freeBusyFlag();
+}
+}
+public int read(byte b[]) throws IOException {
+return read(b, 0, b.length);
+}
+public int read(byte b[], int off, int len) throws IOException {
+try {
+lock.getBusyFlag();
+while (reslen == 0) {
+try {
+if (EOF) return(-1);
+if (IOError != null) throw IOError;
+empty.cvWait();
+} catch (InterruptedException e) {}
+}
+int sizeread = Math.min(reslen, len);
+byte c[] = getChars(sizeread);
+System.arraycopy(c, 0, b, off, sizeread);
+return(sizeread);
+} finally {
+lock.freeBusyFlag();
+}
+}

@@ -9,7 +9,8 @@ have support for threads embedded into the language, much as support for threads
 Java language. Nonetheless, the topic of threads is usually considered a peripheral programming
 topic, one that's only needed in special programming cases.
 
-With Java, things are different: it is impossible to write any but the simplest Java program without
-introducing the topic of threads. And the popularity of Java ensures that many developers who might
-never have considered learning about threading possibilities in a language like C or C++ need to
-become fluent in threaded programming.
+Java is a multi-threaded programming language which means we can develop multi-threaded program using Java. A multi-threaded program contains two or more parts that can run concurrently and each part can handle a different task at the same time making optimal use of the available resources specially when your computer has multiple CPUs.
+
+By definition, multitasking is when multiple processes share common processing resources such as a CPU. Multi-threading extends the idea of multitasking into applications where you can subdivide specific operations within a single application into individual threads. Each of the threads can run in parallel. The OS divides processing time not only among different applications, but also among each thread within an application.
+
+Multi-threading enables you to write in a way where multiple activities can proceed concurrently in the same program.

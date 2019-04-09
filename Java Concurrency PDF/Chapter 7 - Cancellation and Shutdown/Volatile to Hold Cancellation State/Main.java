@@ -10,4 +10,17 @@ public class Main {
         }
         return generator.get();
     }
+    
+    void consumePrimes() throws InterruptedException {
+        BlockingQueue<BigInteger> primes = ...;
+        BrokenPrimeProducer producer = new BrokenPrimeProducer(primes);
+        producer.start();
+        
+        try {
+            while (needMorePrimes())
+                consume(primes.take());
+        } finally {
+            producer.cancel();
+        }
+    }
 }

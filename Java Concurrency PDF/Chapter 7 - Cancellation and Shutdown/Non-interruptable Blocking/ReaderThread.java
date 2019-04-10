@@ -23,9 +23,9 @@ public class ReaderThread extends Thread {
             while (true) {
                 int count = in.read(buf);
                 if (count < 0)
-                break;
+                    break;
                 else if (count > 0)
-                processBuffer(buf, count);
+                    processBuffer(buf, count);
             }
         } catch (IOException e) { /* Allow thread to exit */ }
     }

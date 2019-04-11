@@ -25,7 +25,19 @@ public class IndexingService {
         }
     }
     
-    class IndexerThread extends Thread { /* Listing 7.19 */ }
+    class IndexerThread extends Thread { 
+        public void run() {
+            try {
+                while (true) {
+                    File file = queue.take();
+                    if (file == POISON)
+                        break;
+                    else
+                        indexFile(file);
+                }
+            } catch (InterruptedException consumed) { }
+        }
+    }
     
     public void start() {
         producer.start();

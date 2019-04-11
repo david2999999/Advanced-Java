@@ -13,6 +13,13 @@ public class LogWriter {
         queue.put(msg);
     }
     
+    public void log(String msg) throws InterruptedException {
+        if (!shutdownRequested)
+            queue.put(msg);
+        else
+            throw new IllegalStateException("logger is shut down");
+    }
+    
     private class LoggerThread extends Thread {
         private final PrintWriter writer;
 

@@ -6,8 +6,9 @@ public abstract class WebCrawler {
     public synchronized void start() {
         exec = new TrackingExecutor(
         Executors.newCachedThreadPool());
-        for (URL url : urlsToCrawl) submitCrawlTask(url);
-            urlsToCrawl.clear();
+        for (URL url : urlsToCrawl) 
+            submitCrawlTask(url);
+        urlsToCrawl.clear();
     }
     
     public synchronized void stop() throws InterruptedException {

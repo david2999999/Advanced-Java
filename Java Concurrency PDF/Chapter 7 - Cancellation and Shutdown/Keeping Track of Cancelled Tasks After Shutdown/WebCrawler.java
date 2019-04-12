@@ -30,4 +30,17 @@ public abstract class WebCrawler {
         exec.execute(new CrawlTask(u));
     }
 
+    private class CrawlTask implements Runnable {
+        private final URL url;
+
+        public void run() {
+            for (URL link : processPage(url)) {
+                if (Thread.currentThread().isInterrupted())
+                    return;
+                submitCrawlTask(link);
+            }
+        }
+        
+        public URL getPage() { return url; }
+    }
 }

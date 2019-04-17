@@ -17,24 +17,24 @@ public void transferMoney(final Account fromAcct, final Account toAcct, final Do
     int toHash = System.identityHashCode(toAcct);
     
     if (fromHash < toHash) {
-    synchronized (fromAcct) {
-    synchronized (toAcct) {
-    new Helper().transfer();
-    }
-    }
+        synchronized (fromAcct) {
+            synchronized (toAcct) {
+                new Helper().transfer();
+            }
+        }
     } else if (fromHash > toHash) {
-    synchronized (toAcct) {
-    synchronized (fromAcct) {
-    new Helper().transfer();
-    }
-    }
+        synchronized (toAcct) {
+            synchronized (fromAcct) {
+                new Helper().transfer();
+            }
+        }
     } else {
-    synchronized (tieLock) {
-    synchronized (fromAcct) {
-    synchronized (toAcct) {
-    new Helper().transfer();
-    }
-    }
-    }
+        synchronized (tieLock) {
+            synchronized (fromAcct) {
+                synchronized (toAcct) {
+                    new Helper().transfer();
+                }
+            }
+        }
     }
 }

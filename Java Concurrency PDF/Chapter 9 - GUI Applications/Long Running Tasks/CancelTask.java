@@ -3,7 +3,7 @@ public class CancelTask {
 
     startButton.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-            if (runningTask != null) {
+            if (runningTask == null) {
                 runningTask = backgroundExec.submit(new Runnable() {
                     public void run() {
                         while (moreWork()) {

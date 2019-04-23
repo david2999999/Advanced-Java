@@ -13,4 +13,26 @@ class BoundedBufferTest extends TestCase {
         assertTrue(bb.isFull());
         assertFalse(bb.isEmpty());
     }
+    
+    void testTakeBlocksWhenEmpty() {
+        final BoundedBuffer<Integer> bb = new BoundedBuffer<Integer>(10);
+        Thread taker = new Thread() {
+            public void run() {
+                try {
+                    int unused = bb.take();
+                    fail(); // if we get here, it's an error
+                } catch (InterruptedException success) { }
+            }
+        };
+        
+        try {
+            taker.start();
+            Thread.sleep(LOCKUP_DETECT_TIMEOUT);
+            taker.interrupt();
+            taker.join(LOCKUP_DETECT_TIMEOUT);
+            assertFalse(taker.isAlive());
+        } catch (Exception unexpected) {
+            fail();
+        }
+    }
 }

@@ -50,5 +50,20 @@ public class PutTakeTest {
             }
         }
     }
-    class Consumer implements Runnable { /* Listing 12.6 */ }
+    
+    class Consumer implements Runnable { 
+        public void run() {
+            try {
+                barrier.await();
+                int sum = 0;
+                for (int i = nTrials; i > 0; --i) {
+                    sum += bb.take();
+                }
+                takeSum.getAndAdd(sum);
+                barrier.await();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 }

@@ -31,6 +31,24 @@ public class PutTakeTest {
             throw new RuntimeException(e);
         }
     }
-    class Producer implements Runnable { /* Listing 12.6 */ }
+    class Producer implements Runnable { 
+        public void run() {
+            try {
+                int seed = (this.hashCode() ^ (int)System.nanoTime());
+                int sum = 0;
+                barrier.await();
+                
+                for (int i = nTrials; i > 0; --i) {
+                    bb.put(seed);
+                    sum += seed;
+                    seed = xorShift(seed);
+                }
+                putSum.getAndAdd(sum);
+                barrier.await();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
     class Consumer implements Runnable { /* Listing 12.6 */ }
 }

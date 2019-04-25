@@ -1,6 +1,3 @@
-this.timer = new BarrierTimer();
-this.barrier = new CyclicBarrier(npairs * 2 + 1, timer);
-
 public class BarrierTimer implements Runnable {
     private boolean started;
     private long startTime, endTime;

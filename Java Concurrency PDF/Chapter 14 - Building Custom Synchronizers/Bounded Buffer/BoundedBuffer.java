@@ -20,4 +20,14 @@ public class BoundedBuffer<V> extends BaseBoundedBuffer<V> {
         notifyAll();
         return v;
     }
+    
+    public synchronized void put(V v) throws InterruptedException {
+        while (isFull())
+            wait();
+        boolean wasEmpty = isEmpty();
+        doPut(v);
+        
+        if (wasEmpty)
+            notifyAll();
+    }
 }

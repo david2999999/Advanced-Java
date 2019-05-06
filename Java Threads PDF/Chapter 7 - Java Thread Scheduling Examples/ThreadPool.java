@@ -71,4 +71,70 @@ public class ThreadPool {
             }
         }
     }
+    
+    Vector objects;
+    int nObjects = 0;
+    CondVar cvAvailable, cvEmpty;
+    BusyFlag cvFlag;
+    ThreadPoolThread poolThreads[];
+    boolean terminated = false;
+    
+    public ThreadPool(int n) {
+        cvFlag = new BusyFlag();
+        cvAvailable = new CondVar(cvFlag);
+        cvEmpty = new CondVar(cvFlag);
+        objects = new Vector();
+        poolThreads = new ThreadPoolThread[n];
+        
+        for (int i = 0; i < n; i++) {
+            poolThreads[i] = new ThreadPoolThread(this, i);
+            poolThreads[i].start();
+        }
+    }
+    
+    private void add(Runnable target, Object lock) {
+        try {
+            cvFlag.getBusyFlag();
+            if (terminated)
+                throw new IllegalStateException("Thread pool has shut down");
+            objects.addElement(new ThreadPoolRequest(target, lock));
+            nObjects++;
+            cvAvailable.cvSignal();
+        } finally {
+            cvFlag.freeBusyFlag();
+        }
+    }
+    
+    public void addRequest(Runnable target) {
+        add(target, null);
+    }
+    
+    public void addRequestAndWait(Runnable target) throws InterruptedException {
+    Object lock = new Object();
+        synchronized(lock) {
+            add(target, lock);
+            lock.wait();
+        }
+    }
+    
+    public void waitForAll(boolean terminate) throws InterruptedException {
+        try {
+            cvFlag.getBusyFlag();
+            while (nObjects != 0)
+                cvEmpty.cvWait();
+                
+            if (terminate) {
+                for (int i = 0; i < poolThreads.length; i++)
+                    poolThreads[i].shouldRun = false;
+                cvAvailable.cvBroadcast();
+                terminated = true;
+            }
+        } finally {
+            cvFlag.freeBusyFlag();
+        }
+    }
+    
+    public void waitForAll() throws InterruptedException {
+        waitForAll(false);
+    }
 }

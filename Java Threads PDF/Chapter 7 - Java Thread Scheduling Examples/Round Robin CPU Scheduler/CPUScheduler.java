@@ -15,7 +15,10 @@ public class CPUScheduler extends Thread {
     }
     
     public void removeThread(Thread t) {
-        t.setPriority(5);
+        try {
+            t.setPriority(5);
+        } catch(Exception e) {}
+        
         threads.delete(t);
         synchronized(this) {
             if (current == t)
@@ -32,7 +35,11 @@ public class CPUScheduler extends Thread {
             if (current == null)
                 return;
                 
-            current.setPriority(4);
+            try {
+                current.setPriority(4);
+            } catch (Exception e) {
+                removeThread(current);
+            }
             
             try {
                 Thread.sleep(timeslice);
@@ -40,7 +47,11 @@ public class CPUScheduler extends Thread {
             
             synchronized(this) {
                 if (current != null)
-                    current.setPriority(2);
+                    try {
+                        current.setPriority(2);
+                    } catch (Exception e) {
+                        removeThread(current);
+                    }
         }
     }
 }

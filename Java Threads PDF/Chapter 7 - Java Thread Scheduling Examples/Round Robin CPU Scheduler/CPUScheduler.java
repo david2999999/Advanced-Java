@@ -4,6 +4,7 @@ public class CPUScheduler extends Thread {
     public volatile boolean shouldRun = false; // Exit when this is set
     private Thread current;
     private static boolean initialized = false;
+    private boolean needThreads;
     
     private synchronized static boolean isInitialized() {
         if (initialized)
@@ -17,16 +18,17 @@ public class CPUScheduler extends Thread {
             throw new SecurityException("Already initialized");
         threads = new CircularList();
         timeslice = t;
-    }
-
-    public CPUScheduler(int t) {
-        threads = new CircularList();
-        timeslice = t;
+        setDaemon(true);
     }
     
     public void addThread(Thread t) {
         threads.insert(t);
         t.setPriority(2);
+        
+        if (needThreads) {
+            needThreads = false;
+            notify();
+        }
     }
     
     public void removeThread(Thread t) {
@@ -41,14 +43,20 @@ public class CPUScheduler extends Thread {
         }
     }
     
-    public void run() {
+    public synchronized void run() {
         Thread current;
         setPriority(6);
         
         while (shouldRun) {
             current = (Thread) threads.getNext();
-            if (current == null)
-                return;
+            
+            while (current == null) {
+                needThreads = true;
+                try {
+                    wait();
+                } catch (Exception e) {}
+                current = (Thread) threads.getNext();
+            }
                 
             try {
                 current.setPriority(4);
@@ -57,7 +65,7 @@ public class CPUScheduler extends Thread {
             }
             
             try {
-                Thread.sleep(timeslice);
+                wait(timeslice);
             } catch (InterruptedException ie) {};
             
             synchronized(this) {

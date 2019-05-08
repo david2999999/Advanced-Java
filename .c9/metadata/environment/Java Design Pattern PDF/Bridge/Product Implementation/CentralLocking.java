@@ -1,0 +1,1 @@
+{"filter":false,"title":"CentralLocking.java","tooltip":"/Java Design Pattern PDF/Bridge/Product Implementation/CentralLocking.java","ace":{},"undoManager":{"mark":-1,"position":-1,"stack":[]},"timestamp":1557163458096,"hash":"7c7a2c42191c62a1ef81c4a8dce0efb443fbe998"}

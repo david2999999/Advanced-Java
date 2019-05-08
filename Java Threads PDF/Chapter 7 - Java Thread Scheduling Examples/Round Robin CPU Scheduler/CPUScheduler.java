@@ -3,7 +3,22 @@ public class CPUScheduler extends Thread {
     private CircularList threads; // All the threads we're scheduling
     public volatile boolean shouldRun = false; // Exit when this is set
     private Thread current;
+    private static boolean initialized = false;
     
+    private synchronized static boolean isInitialized() {
+        if (initialized)
+            return true;
+        initialized = true;
+        return false;
+    }
+    
+    public CPUScheduler(int t) {
+        if (isInitialized())
+            throw new SecurityException("Already initialized");
+        threads = new CircularList();
+        timeslice = t;
+    }
+
     public CPUScheduler(int t) {
         threads = new CircularList();
         timeslice = t;

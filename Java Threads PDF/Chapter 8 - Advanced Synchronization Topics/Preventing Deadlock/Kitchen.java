@@ -3,9 +3,9 @@ public class Kitchen {
     static Bowl theBowl;
     
     public void makeCookie() {
-        synchronized(theCup) {
-            theCup.measureOut(1, theFlour);
-            synchronized(theBowl) {
+        synchronized(theBowl) {
+            synchronized(theCup) {
+                theCup.measureOut(1, theFlour);
                 theBowl.putIngredients(theCup);
                 theBowl.mix();
             }

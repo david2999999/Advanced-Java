@@ -6,11 +6,22 @@ public class Kitchen {
     public void makeCookie() {
         theCupFlag.getBusyFlag();
         theCup.measureOut(1, theFlour);
-        theBowlFlag.getBusyFlag();
-        theBowl.putIngredients(theCup);
-        theBowl.mix();
-        theBowlFlag.freeBusyFlag();
-        theCupFlag.freeBusyFlag();
+        
+        if (theBowlFlag.tryGetBusyFlag()) {
+            theBowl.putIngredients(theCup);
+            theBowl.mix();
+            theBowlFlag.freeBusyFlag();
+            theCupFlag.freeBusyFlag();
+        }
+        else {
+            WaxedPaper thePaper = new WaxedPaper();
+            thePaper.emptyOnto(theCup);
+            theCupFlag.freeBusyFlag();
+            theBowlFlag.getBusyFlag();
+            theBowl.putIngredients(thePaper);
+            theBowl.mix();
+            theBowlFlag.freeBusyFlag();
+        }
     }
     
     public void makeOmelette() {

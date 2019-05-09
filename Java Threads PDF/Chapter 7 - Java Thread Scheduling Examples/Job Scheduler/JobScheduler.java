@@ -25,4 +25,19 @@ public class JobScheduler implements Runnable {
         js.setDaemon(true);
         js.start();
     }
+    
+    private synchronized void addJob(JobNode job) {
+        dlock.acquire();
+        jobs.addElement(job);
+        notify();
+    }
+    private synchronized void deleteJob(Runnable job) {
+        for (int i=0; i < jobs.size(); i++) {
+        if (((JobNode) jobs.elementAt(i)).job == job) {
+            jobs.removeElementAt(i);
+            dlock.release();
+            break;
+        }
+    }
+}
 }

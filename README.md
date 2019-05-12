@@ -24,5 +24,14 @@ As the name says, ReentrantLock allow threads to enter into lock on a resource m
 
 Reentrant Locks also offer a fairness parameter, by which the lock would abide by the order of the lock request i.e. after a thread unlocks the resource, the lock would go to the thread which has been waiting for the longest time. This fairness mode is set up by passing true to the constructor of the lock.
 
+### Lock Striping
+If you have to look for an example of lock striping in Java then it has to be a ConcurrentHashMap.
+
+By default ConcurrentHashMap in Java has 16 buckets and each bucket has its own lock so there are 16 locks too. So the threads which are accessing keys in separate buckets can access them simultaneously.
+
+If you have to visualize it then following image would give you an idea how lock striping for a ConcurrentHashMap will look like.
+
+Here two threads want to access keys in bucket 0 so one of them can enter, again two threads want to access keys in bucket 1 so one of them can enter. Same with bucket n-3. So, with lock striping out of 6 3 threads can work on the data structure.
+
 ### Software Design Patterns
 Design patterns are used to represent some of the best practices adapted by experienced object-oriented software developers. A design pattern systematically names, motivates, and explains a general design that addresses a recurring design problem in object-oriented systems. It describes the problem, the solution, when to apply the solution, and its consequences. It also gives implementation hints and examples.

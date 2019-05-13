@@ -45,4 +45,27 @@ public class RWLock {
         }
         node.nAcquires++;
     }
+    
+    public synchronized void lockWrite() {
+        RWNode node;
+        Thread me = Thread.currentThread();
+        int index = getIndex(me);
+        if (index == -1) {
+            node = new RWNode(me, RWNode.WRITER);
+            waiters.addElement(node);
+        }
+        else {
+            node = (RWNode) waiters.elementAt(index);
+            if (node.state == RWNode.READER)
+                throw new IllegalArgumentException("Upgrade lock");
+            node.state = RWNode.WRITER;
+        }
+        
+        while (getIndex(me) != 0) {
+            try {
+                wait();
+            } catch (Exception e) {}
+        }
+        node.nAcquires++;
+    }
 }

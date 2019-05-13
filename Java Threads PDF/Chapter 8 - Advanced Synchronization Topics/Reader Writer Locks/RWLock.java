@@ -68,4 +68,20 @@ public class RWLock {
         }
         node.nAcquires++;
     }
+    
+    public synchronized void unlock() {
+        RWNode node;
+        Thread me = Thread.currentThread();
+        int index;
+        index = getIndex(me);
+        if (index > firstWriter())
+            throw new IllegalArgumentException("Lock not held");
+            
+        node = (RWNode) waiters.elementAt(index);
+        node.nAcquires--;
+        if (node.nAcquires == 0) {
+            waiters.removeElementAt(index);
+            notifyAll();
+        }
+    }
 }

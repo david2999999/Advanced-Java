@@ -15,6 +15,17 @@ By definition, multitasking is when multiple processes share common processing r
 
 Multi-threading enables you to write in a way where multiple activities can proceed concurrently in the same program.
 
+## wait
+Object wait methods has three variance, one which waits indefinitely for any other thread to call notify or notifyAll method on the object to wake up the current thread. Other two variances puts the current thread in wait for specific amount of time before they wake up.
+
+## notify
+notify method wakes up only one thread waiting on the object and that thread starts execution. So if there are multiple threads waiting for an object, this method will wake up only one of them. The choice of the thread to wake depends on the OS implementation of thread management.
+
+## notifyAll
+notifyAll method wakes up all the threads waiting on the object, although which one will process first depends on the OS implementation.
+
+These methods can be used to implement producer consumer problem where consumer threads are waiting for the objects in Queue and producer threads put object in queue and notify the waiting threads.
+
 ### Reentrant Locks
 The ReentrantLock class implements the Lock interface and provides synchronization to methods while accessing shared resources. The code which manipulates the shared resource is surrounded by calls to lock and unlock method. This gives a lock to the current working thread and blocks all other threads which are trying to take a lock on the shared resource.
 

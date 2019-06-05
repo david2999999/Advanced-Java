@@ -1,0 +1,1 @@
+{"filter":false,"title":"MySqlHelper.java","tooltip":"/Java Design Patterns - A Programmer's Approach/Facade/Set of Interfaces/MySqlHelper.java","ace":{},"undoManager":{"mark":-1,"position":-1,"stack":[]},"timestamp":1559655233500,"hash":"15698141bafe35463b9b1f55791cf3116e7a0d5d"}

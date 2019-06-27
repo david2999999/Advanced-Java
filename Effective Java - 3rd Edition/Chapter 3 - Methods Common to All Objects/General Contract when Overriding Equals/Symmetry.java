@@ -13,7 +13,12 @@ public class Symmetry {
             if (o instanceof String) // One-way interoperability!
                 return s.equalsIgnoreCase((String) o);
             return false;
-        } ... // Remainder omitted
+        } //... // Remainder omitted
+    }
+
+    @Override public boolean equals(Object o) {
+        return o instanceof CaseInsensitiveString &&
+                ((CaseInsensitiveString) o).s.equalsIgnoreCase(s);
     }
 }
 

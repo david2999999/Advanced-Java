@@ -11,5 +11,9 @@ public class ColorPoint extends Point {
             return false;
         return super.equals(o) && ((ColorPoint) o).color == color;
     }
-
 }
+
+Point p = new Point(1, 2);
+ColorPoint cp = new ColorPoint(1, 2, Color.RED);
+// Then p.equals(cp) returns true, while cp.equals(p) returns
+//false.

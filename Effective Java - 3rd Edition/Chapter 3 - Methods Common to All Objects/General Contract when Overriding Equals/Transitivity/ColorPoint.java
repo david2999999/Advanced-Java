@@ -11,6 +11,17 @@ public class ColorPoint extends Point {
             return false;
         return super.equals(o) && ((ColorPoint) o).color == color;
     }
+
+    // Broken - violates transitivity!
+    @Override public boolean equals(Object o) {
+        if (!(o instanceof Point))
+            return false;
+        // If o is a normal Point, do a color-blind comparison
+        if (!(o instanceof ColorPoint))
+            return o.equals(this);
+        // o is a ColorPoint; do a full comparison
+        return super.equals(o) && ((ColorPoint) o).color == color;
+    }
 }
 
 Point p = new Point(1, 2);

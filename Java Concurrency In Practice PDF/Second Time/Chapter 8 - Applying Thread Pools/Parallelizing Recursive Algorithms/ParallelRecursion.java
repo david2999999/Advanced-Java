@@ -19,4 +19,14 @@ public class ParallelRecursion {
             parallelRecursive(exec, n.getChildren(), results);
         }
     }
+
+    public<T> Collection<T> getParallelResults(List<Node<T>> nodes)
+            throws InterruptedException {
+        ExecutorService exec = Executors.newCachedThreadPool();
+        Queue<T> resultQueue = new ConcurrentLinkedQueue<T>();
+        parallelRecursive(exec, nodes, resultQueue);
+        exec.shutdown();
+        exec.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);
+        return resultQueue;
+    }
 }

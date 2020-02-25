@@ -8,8 +8,4 @@ public class CarDirector {
     public void build() {
         this.carBuilder.build();
     }
-
-    public Car getCar() {
-        return this.carBuilder.getCar();
-    }
 }

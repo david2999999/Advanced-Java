@@ -13,4 +13,9 @@ public class MySqLCSVCon extends ConnectionTemplate {
     public void setData() {
         System.out.println("Setting up data from csv file....");
     }
+
+    @Override
+    public boolean disableLogging() {
+        return false;
+    }
 }

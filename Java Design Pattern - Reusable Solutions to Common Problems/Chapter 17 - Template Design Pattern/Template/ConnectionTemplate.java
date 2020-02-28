@@ -1,13 +1,27 @@
 public abstract class ConnectionTemplate {
+    private boolean isLoggingEnable = true;
+
+    public ConnectionTemplate() {
+        isLoggingEnable = disableLogging();
+    }
+
     public final void run() {
         setDBDriver();
+        logging("Drivers set [" + new Date() + "]");
         setCredentials();
+        logging("Credentails set [" + new Date() + "]");
         connect();
+        logging("Conencted");
         prepareStatement();
+        logging("Statement prepared [" + new Date() + "]");
         setData();
+        logging("Data set [" + new Date() + "]");
         insert();
+        logging("Inserted [" + new Date() + "]");
         close();
+        logging("Conenctions closed [" + new Date() + "]");
         destroy();
+        logging("Object destoryed [" + new Date() + "]");
     }
 
     public abstract void setDBDriver();
@@ -34,5 +48,15 @@ public abstract class ConnectionTemplate {
 
     public void destroy() {
         System.out.println("Destroying connection objects...");
+    }
+
+    public boolean disableLogging() {
+        return true;
+    }
+
+    private void logging(String msg) {
+        if (isLoggingEnable) {
+            System.out.println("Logging....: " + msg);
+        }
     }
 }

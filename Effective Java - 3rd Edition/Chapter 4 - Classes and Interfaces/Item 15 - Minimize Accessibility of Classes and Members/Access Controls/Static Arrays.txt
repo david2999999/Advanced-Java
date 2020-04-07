@@ -1,0 +1,7 @@
+Static Arrays
+    - Non-zero length array is always mutable
+        - Do not have a public static final array field, or an accessor that returns such a field
+        - If the class has such a field or accessor, clients will be able to modify the contents of the array
+    - Two ways to resolve this problem are
+        1) Make the public array private and add a public immutable list
+        2) Make the public array private and add a public method that returns a copy of the private array

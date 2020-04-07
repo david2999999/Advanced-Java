@@ -1,0 +1,13 @@
+Degenerate Classes
+    - Occasionally, we may be tempted to write degenerate classes that serve no purpose
+      other than to group instance fields
+        - Example: Point class with the public fields x, y
+    - The data fields of such classes are accessed directly, these classes do not offer
+      the benefits of encapsulation
+        - We can not change the representation without changing the API
+    - These classes should always be replaced by classes wth private fields and public
+      accessor methods
+        - If a class is accessible outside its package, provide accessor methods to preserve
+          the flexibility to change the class's internal representation
+        - If a public class exposes its data fields, all hope of changing its representation
+          is lost because client code can be distributed far and wide

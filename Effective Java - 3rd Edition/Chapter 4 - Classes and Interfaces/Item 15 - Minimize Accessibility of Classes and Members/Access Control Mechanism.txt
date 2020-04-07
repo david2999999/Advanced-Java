@@ -26,3 +26,11 @@ Instance fields of public classes
             - We give up the ability to enforce invariants involving the field
             - Generally not thread-safe
             - Give up the flexibility to switch to a new internal data representation in which the field does not exist
+
+Static Fields
+    - We can expose constants via public static final fields, assuming the constants form an integral part of the abstraction
+      provided by the class
+    - The convention of such fields have names consisting of capital letters
+        - These words are separated by underscores
+    - These fields should contain either primitive values or references to immutable objects
+        - If an object is mutable, even if the reference cannot be modified, the referenced object can be modified

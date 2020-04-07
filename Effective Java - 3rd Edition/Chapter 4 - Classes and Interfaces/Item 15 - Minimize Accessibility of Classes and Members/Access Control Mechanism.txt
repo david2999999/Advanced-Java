@@ -9,3 +9,11 @@ Access Control Mechanism
       - If a package-private top-level class or interface is used by only one class
         - consider making the top-level class a private static nested class of the sole class
         - This reduces its accessibility from all the classes in its package to the one class that uses it
+
+Four Access Levels
+    - private - members is accessible only from the top-level class where it is declared
+    - package-private - member is accessible from any class in the package where it is declared
+        - Also known as default access
+    - protected - member is accessible from subclasses of the class where it is declared and any class
+                  in the package where it is declared
+    - public - member is accessible from anywhere

@@ -1,0 +1,10 @@
+Module System
+    - Two additional, implicit access levels introduced as part of the module system
+        - Public and protected members of unexported packages in a module are inaccessible
+          outside the module
+        - Within the module, accessibility is unaffected by export declarations
+    - Using the module system allows you to share classes among packages within a module
+      without making them visible to the entire world
+    - Public and protected members of public classes in unexported packages give rise to the
+      two implicit access levels, which are intramodular analogues of the normal public and
+      protected levels

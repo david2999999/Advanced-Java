@@ -1,4 +1,4 @@
-Minimize Accessibility of Classes and Members
+Information Hiding
     - Well-designed component hides all its implementation details, cleanly separating its API
       from its implementation
     - Components then communicate only through their API and are oblivious to each others' inner workings

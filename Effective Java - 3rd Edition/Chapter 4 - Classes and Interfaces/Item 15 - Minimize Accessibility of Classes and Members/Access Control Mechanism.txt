@@ -1,0 +1,11 @@
+Access Control Mechanism
+    - Java provide many facilities to add information hiding
+        - One of them is access control mechanism, which specifies the accessibility of classes, interfaces, and members
+        - The rule of thumb is to make each class or member as inaccessible as possible
+    - Top level classes and interfaces
+        - The two possible access levels: package-private and public
+        - By making package-private, you make it part of the implementation rather than the exported API, and
+          you can modify, replace, eliminate it in a subsequent release without fear of harming existing clients
+      - If a package-private top-level class or interface is used by only one class
+        - consider making the top-level class a private static nested class of the sole class
+        - This reduces its accessibility from all the classes in its package to the one class that uses it

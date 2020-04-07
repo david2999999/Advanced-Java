@@ -11,3 +11,9 @@ Degenerate Classes
           the flexibility to change the class's internal representation
         - If a public class exposes its data fields, all hope of changing its representation
           is lost because client code can be distributed far and wide
+
+Package Private or Private Nested Class
+    - There is nothing inherently wrong with exposing its data fields, assuming they
+      do an adequate job of describing the abstraction provided by the class
+        - Provides less visual clutter than the accessor-method approach
+        - Changes to the representation does not affect code outside of the package

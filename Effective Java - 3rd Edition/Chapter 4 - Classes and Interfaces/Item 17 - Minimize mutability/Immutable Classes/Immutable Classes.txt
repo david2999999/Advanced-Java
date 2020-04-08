@@ -21,7 +21,6 @@ Immutable Objects
         - They cannot be corrupted by multiple threads accessing them concurrently
         - Can be shared freely among threads
 
-
 Rules to Make an Object Immutable
     1) Don't provide methods that modify the object's state (known as mutators)
     2) Ensure that the class can't be extended
@@ -38,3 +37,15 @@ Rules to Make an Object Immutable
         - If the class has any fields that refer to mutable objects, ensure the clients of the class cannot
           obtain references to these objects
         - Make defensive copies in constructors, accessors, and readObject methods
+
+What are the Disadvantage of Immutable Classes
+    - Requires a separate object for each distinct value
+        - Creating these objects can be costly, especially if they are large
+        - Example: If we have a million-bit BigInteger and we want to change its low-order bit
+            - The flipBit method creates a new BigInteger instance, also a million bits long, that
+              differs by only one bit
+            - Like BigInteger, BitSet represents an arbitrarily long sequence of bits, but unlike
+              BigInteger, BitSet is mutable
+                - Flipping one bit in BitSet can be done in constant time
+    - This performance problem is magnified if we perform a multistep operation that generates
+      a new object at every step, eventually discarding all objects except the final result

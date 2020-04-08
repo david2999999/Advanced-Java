@@ -17,3 +17,12 @@ Violating of Encapsulation
         - Subclass must evolve in tandem with its superclass
             - Unless the superclass's author have designed and documented it specifically for the
               purpose of being extended
+
+Downfall of Using Inheritance
+    - We may think that it is safe to extend a class if we merely add new methods and
+      refrain from overriding existing methods
+        - Although this sort of extension is safer, it is not without risk
+    - If the superclass acquires new method in a subsequent release and the subclass has a
+      method with the same signature and a different return type, the subclass will no longer compile
+    - It is doubtful that our method will fullfill the contract of the new superclass method, because
+      that contract had not yet been written when we wrote the subclass method.

@@ -1,0 +1,25 @@
+Immutable Class
+    - A class whose instances cannot be modified
+        - The information contained in each instance is fixed for the lifetime of the object, so no change
+          can be observed
+        - Java platform libraries contain many immutable classes, including String, the boxed primitive, and
+          BigInteger and BigDecimal
+    - Immutable classes are easier to design, implement, and use than mutable classes
+        - They are also less prone to error and are more secure
+
+Rules to Make an Object Immutable
+    1) Don't provide methods that modify the object's state (known as mutators)
+    2) Ensure that the class can't be extended
+        - Prevents careless or malicious subclasses from compromising the immutable behavior of the class
+        - Preventing subclassing is generally accomplished by making the class final
+    3) Make all fields final
+    4) Make all fields private
+        - prevents clients from obtaining access to mutable objects referred to by fields and modifying
+          these objects directly
+        - it is not recommended for immutable classes to have public final fields containing primitive values
+          or references to immutable objects
+            - If we include this fields, we are unable to change its internal representation in future releases
+    5) Ensure exclusive access to any mutable components
+        - If the class has any fields that refer to mutable objects, ensure the clients of the class cannot
+          obtain references to these objects
+        - Make defensive copies in constructors, accessors, and readObject methods

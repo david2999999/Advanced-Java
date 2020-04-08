@@ -6,6 +6,21 @@ Immutable Class
           BigInteger and BigDecimal
     - Immutable classes are easier to design, implement, and use than mutable classes
         - They are also less prone to error and are more secure
+    - Should encourage clients to reuse existing instances whenever possible
+        - An easy way to do this is to provide public static final constants for commonly used values
+
+Immutable Objects
+    - can be in exactly one state, the state in which it was created
+    - If the constructor establish class invariants, the object is guaranteed these invariants
+      will remain true for all times
+    - Mutable objects, on the other hand, can have arbitrary complex state spaces
+        - If the documentation does not provide a precise description of the state transition
+          perform by mutator methods, it can be difficult or impossible to use a mutable class
+          reliably.
+    - Inherently thread-safe and requires no synchronization
+        - They cannot be corrupted by multiple threads accessing them concurrently
+        - Can be shared freely among threads
+
 
 Rules to Make an Object Immutable
     1) Don't provide methods that modify the object's state (known as mutators)

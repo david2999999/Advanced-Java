@@ -8,3 +8,12 @@ Composition over Inheritance
       for extension
     - Inheriting from an ordinary concrete classes across package boundaries is dangerous
         - Inheritance in this case, is implementation inheritance
+
+Violating of Encapsulation
+    - Inheritance violates encapsulation
+        - Subclass depends on the implementation details of its superclass for its proper function
+        - If the implementation of the superclass changes, the subclass may break, even though its
+          code has not being touched
+        - Subclass must evolve in tandem with its superclass
+            - Unless the superclass's author have designed and documented it specifically for the
+              purpose of being extended

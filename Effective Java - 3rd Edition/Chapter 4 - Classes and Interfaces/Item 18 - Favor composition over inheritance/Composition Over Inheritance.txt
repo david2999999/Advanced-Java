@@ -1,0 +1,10 @@
+Composition over Inheritance
+    - Although inheritance is a powerful way to achieve code reuse, it is not always the best tool
+      for the job
+        - If used inappropriately, it leads to fragile software
+    - It is safe to use inheritance within a package, where the subclass and the superclass
+      implementations are under the control of the same programmer
+    - It is also safe to use inheritance when extending classes specially designed and documented
+      for extension
+    - Inheriting from an ordinary concrete classes across package boundaries is dangerous
+        - Inheritance in this case, is implementation inheritance
